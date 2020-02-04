@@ -1,0 +1,9 @@
+[submodule "lib/xxHash"]
+	path = lib/xxHash
+	url = git@github.com:Cyan4973/xxHash
+[submodule "lib/c_list_types"]
+	path = lib/c_list_types
+	url = git@github.com:weaversa/c_list_types
+[submodule "lib/bitvector"]
+	path = lib/bitvector
+	url = git@github.com:weaversa/bitvector.git

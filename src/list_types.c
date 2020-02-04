@@ -1,0 +1,23 @@
+#include "list_types.h"
+
+create_c_list_type(uint8_t_list, uint8_t)
+create_c_list_type(int8_t_list, int8_t)
+create_c_list_type(uint16_t_list, uint16_t)
+create_c_list_type(int16_t_list, int16_t)
+create_c_list_type(uint32_t_list, uint32_t)
+create_c_list_type(int32_t_list, int32_t)
+create_c_list_type(int64_t_list, int64_t)
+create_c_list_type(uintmax_t_list, uintmax_t)
+create_c_list_type(intmax_t_list, intmax_t)
+create_c_list_type(uintptr_t_list, uintptr_t)
+
+create_c_list_type(uint8_t_plist, uint8_t *)
+create_c_list_type(int8_t_plist, int8_t *)
+create_c_list_type(uint16_t_plist, uint16_t *)
+create_c_list_type(int16_t_plist, int16_t *)
+create_c_list_type(uint32_t_plist, uint32_t *)
+create_c_list_type(int32_t_plist, int32_t *)
+create_c_list_type(int64_t_plist, int64_t *)
+create_c_list_type(uintmax_t_plist, uintmax_t *)
+create_c_list_type(intmax_t_plist, intmax_t *)
+create_c_list_type(uintptr_t_plist, uintptr_t *)
