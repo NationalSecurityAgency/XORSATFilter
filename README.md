@@ -161,10 +161,10 @@ TEST
 ====
 
 A sample interface is given in the `test` directory. The test builds a
-k-XORSAT filter for 1000000 random 10-byte elements, writes the filter
-to a file, reads the file back, then queries the filter against the
-original elements (for a consistency check) and prints statistics. To
-run the test type:
+k-XORSAT dictionary for 1000000 random 10-byte elements each with
+10-bytes of metadata, writes the dictionary to a file, reads the file
+back, then queries the filter against the original elements (for a
+consistency check) and prints statistics. To run the test type:
 
 ```
 $ make test/test && test/test
