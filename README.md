@@ -22,11 +22,10 @@ false positive rates.
 DEPENDENCIES
 ============
 
-This package depends on the POSIX threads and standard C math
-libraries.
+This package depends on standard C math libraries.
 
-This project also relies on a git submodule. To get this module, clone
-the repository by doing either
+This project also relies on a few git submodules. To get these
+modules, clone the repository by doing either
 ```
 git clone --recursive git@github.com:NationalSecurityAgency/XORSATFilter.git
 ```
