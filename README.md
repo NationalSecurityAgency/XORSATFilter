@@ -58,21 +58,27 @@ A builder is first allocated using `XORSATFilterBuilderAlloc`,
 like so:
 
 ```
-  XORSATFilterBuilder *xsfb = XORSATFilterBuilderAlloc(0);
+  XORSATFilterBuilder *xsfb = XORSATFilterBuilderAlloc(0, 0);
 ```
 
 Here, the first argument `0` is the number of expected elements the
 filter will encode. It is safe to leave this number as `0`, but will
-decrease calls to malloc if the number is given ahead of time.
+decrease calls to malloc if the number is given ahead of time. The
+second argument is the number of bytes of metatdata to store with each
+element. To use the data structure as a filter, enter 0. To use the
+data structure as a dictionary, enter the number of bytes to store in
+the dictionary.
 
 Elements are added to the builder, like so:
 
 ```
-  XORSATFilterBuilderAddElement(xsfb, pElement, nElementBytes);
+  XORSATFilterBuilderAddElement(xsfb, pElement, nElementBytes, pMetaData);
 ```
 
 Here, `pElement` is a pointer to at least `nElementBytes` number of
-bytes. This element will be copied into the builder.
+bytes. This element will be copied into the builder. `pMetaData` is a
+pointer to an array of bytes that will be stored into the data
+structure and can be retrieved after construction.
 
 After all elements have been stored, the querier is ready to be
 created:
@@ -127,6 +133,16 @@ Here, `pElement` is a pointer to `nElementBytes` number of bytes. If
 this element might be in the filter (depending on the false positive
 rate), `ret` will return `1`. Otherwise, `ret` will return `0`,
 indicating that this element is definitely not in the filter.
+
+Stored metadata can be retrived like so:
+
+```
+  uint8_t *pMetaData_retrieved = XORSATFilterRetrieveMetadata(xsfq, pElement, nElementBytes);
+```
+
+If `pElement` was not added to the data structure, the metadata
+returned will appear random. Otherwise, the stored metadata will be
+returned via a newly allocated pointer.
 
 Queriers can be serialized (written to a file) in the following way:
 
