@@ -80,6 +80,14 @@ pointer to an array of bytes that will be stored into the data
 structure and can be retrieved after construction. If the data
 structure is used as a filter, this last argument may be `NULL`.
 
+It is also possible to add the absence of an element to the
+filter. This will cause the filter to return `False` when queried
+against the element.
+
+```
+  XORSATFilterBuilderAddAbsence(xsfb, pElement, nElementBytes);
+```
+
 After all elements have been stored, the querier is ready to be
 created:
 
