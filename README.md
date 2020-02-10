@@ -78,7 +78,7 @@ Here, `pElement` is a pointer to at least `nElementBytes` number of
 bytes. This element will be copied into the builder. `pMetaData` is a
 pointer to an array of bytes that will be stored into the data
 structure and can be retrieved after construction. If the data
-structure is used as a filter, this second argument may be `NULL`.
+structure is used as a filter, this last argument may be `NULL`.
 
 After all elements have been stored, the querier is ready to be
 created:
