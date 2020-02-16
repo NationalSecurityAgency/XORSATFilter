@@ -20,9 +20,9 @@ CC = gcc
 DBG = #-g -Wall -fstack-protector-all -pedantic
 OPT = -march=native -O3 -DNDEBUG -ffast-math -fomit-frame-pointer -finline-functions
 INCLUDES = -Iinclude
-LIBS = -l$(XORSATLIB) -lm
+LIBS = -l$(XORSATLIB) -lm -lpthread
 LDFLAGS = -Llib
-CFLAGS = -std=gnu99 $(DBG) $(OPT) $(INCLUDES) -fopenmp
+CFLAGS = -std=gnu99 $(DBG) $(OPT) $(INCLUDES)
 AR = ar r
 RANLIB = ranlib
 
@@ -41,6 +41,13 @@ endif
 	@rm -f .depend.bak
 -include .depend
 
+OBJECTS_CTHREADPOOL = lib/C-Thread-Pool/obj/*.o
+
+lib/C-Thread-Pool/obj/thpool.o: lib/C-Thread-Pool/thpool.c
+	@echo "Compiling "$<""
+	@[ -d lib/C-Thread-Pool/obj ] || mkdir -p lib/C-Thread-Pool/obj
+	@$(CC) $(CFLAGS) -c -Wno-implicit-function-declaration $< -o $@
+
 lib/bitvector/lib/libbitvector.a:
 	@cd lib/bitvector && $(MAKE)
 
@@ -49,11 +56,12 @@ $(OBJECTS): obj/%.o : src/%.c Makefile
 	@[ -d obj ] || mkdir -p obj
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-lib/lib$(XORSATLIB).a: $(OBJECTS) Makefile lib/bitvector/lib/libbitvector.a
+lib/lib$(XORSATLIB).a: $(OBJECTS) Makefile lib/bitvector/lib/libbitvector.a lib/C-Thread-Pool/obj/thpool.o
 	@echo "Creating "$@""
 	@[ -d lib ] || mkdir -p lib
 	@rm -f $@
 	@cp lib/bitvector/lib/libbitvector.a $@
+	@$(AR) $@ $(OBJECTS_CTHREADPOOL)
 	@$(AR) $@ $(OBJECTS)
 	@$(RANLIB) $@
 
@@ -74,6 +82,7 @@ dist: $(SOURCES) $(HEADERS) $(EXTRAS)
 
 clean:
 	cd lib/bitvector && $(MAKE) clean
+	rm -rf $(OBJECTS_CTHREADPOOL)
 	rm -rf *~ */*~ $(OBJECTS) ./.depend test/test *.dSYM test/test.dSYM xor_filter.tar.gz filter.xor lib/lib$(XORSATLIB).a obj
 
 edit:

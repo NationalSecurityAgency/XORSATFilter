@@ -129,11 +129,14 @@ XORSATFilterQuerier *XORSATFilterBuilderFinalize(XORSATFilterBuilder *xsfb, XORS
 
 
   //Build Blocks
-  #pragma omp parallel for num_threads(nThreads)
+  threadpool thpool = thpool_init(nThreads);
   for(i = 0; i < xsfb->pBlocks.nLength; i++) {
     XORSATFilterBlock *pBlock = &xsfb->pBlocks.pList[i];
-    XORSATFilterSolveBlock(pBlock);
+    thpool_add_work(thpool, (void*)XORSATFilterSolveBlock, pBlock);
   }
+
+  thpool_wait(thpool);
+  thpool_destroy(thpool);
   
   xsfq = XORSATFilterCreateQuerierFromBuilder(xsfb);
 

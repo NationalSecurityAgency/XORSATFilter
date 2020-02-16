@@ -7,3 +7,6 @@
 [submodule "lib/bitvector"]
 	path = lib/bitvector
 	url = git@github.com:weaversa/bitvector.git
+[submodule "lib/C-Thread-Pool"]
+	path = lib/C-Thread-Pool
+	url = git@github.com:Pithikos/C-Thread-Pool.git

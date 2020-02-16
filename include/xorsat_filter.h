@@ -15,10 +15,12 @@
 #include <unistd.h>
 #include <math.h>
 #include <sys/mman.h>
+#include <pthread.h>
 #include <signal.h>
 
 #include "../lib/c_list_types/include/c_list_types.h"
 #include "../lib/bitvector/include/bitvector.h"
+#include "../lib/C-Thread-Pool/thpool.h"
 
 #include "list_types.h"
 #include "xorsat_hashes.h"
