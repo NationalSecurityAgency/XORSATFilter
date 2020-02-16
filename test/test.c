@@ -101,13 +101,13 @@ int main(int argc, char **argv) {
   fclose(fout);
   XORSATFilterQuerierFree(xsfq);
 
-  fout = fopen("filter.xor", "r");
-  xsfq = XORSATFilterDeserialize(fout);
+  FILE *fin = fopen("filter.xor", "r");
+  xsfq = XORSATFilterDeserialize(fin);
   if(xsfq == NULL) {
     fprintf(stderr, "Deserialization failed...exiting\n");
     return -1;
   }
-  fclose(fout);
+  fclose(fin);
   
   //Test Querier
   srand(random_seed);
