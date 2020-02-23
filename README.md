@@ -22,7 +22,7 @@ false positive rates.
 DEPENDENCIES
 ============
 
-This package depends on standard C math libraries.
+This package depends on pthreads and standard C math libraries.
 
 This project also relies on a few git submodules. To get these
 modules, clone the repository by doing either
