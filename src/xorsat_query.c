@@ -229,11 +229,8 @@ uint8_t *XORSATFilterRetrieveMetadataBlock_WRS(XORSATFilterQuerier *xsfq, uint32
   size_t nMetaDataBits = xsfq->nMetaDataBytes * 8;
   uint32_t nRHSBits = nSolutions + nMetaDataBits;
 
-  bitvector_t pFilterBitvector;
-  pFilterBitvector.nBits = nVariables * nRHSBits;
-  pFilterBitvector.bits.nLength_max = pFilterBitvector.nBits >> 6;
-  pFilterBitvector.bits.nLength = pFilterBitvector.bits.nLength_max;
-  pFilterBitvector.bits.pList = pFilterBlock;
+  size_t nBits = nVariables * nRHSBits;
+  size_t nLength = nBits >> 6;
 
   uint64_t *pMetaData = (uint64_t *)calloc((xsfq->nMetaDataBytes >> 2) + 1, sizeof(uint64_t));
 
@@ -245,9 +242,9 @@ uint8_t *XORSATFilterRetrieveMetadataBlock_WRS(XORSATFilterQuerier *xsfq, uint32
     size_t lengthW = (nMetaDataBits >> 6) + 1;
     size_t j;
     for(j = 0; j < lengthW; j++) {
-      pMetaData[j] ^= pFilterBitvector.bits.pList[startW + j] >> (start&0x3f);
-      if((startW + j + 1 < pFilterBitvector.bits.nLength) && ((start&0x3f) != 0)) {
-        pMetaData[j] ^= pFilterBitvector.bits.pList[startW + j + 1] << (64 - (start&0x3f));
+      pMetaData[j] ^= pFilterBlock[startW + j] >> (start&0x3f);
+      if((startW + j + 1 < nLength) && ((start&0x3f) != 0)) {
+        pMetaData[j] ^= pFilterBlock[startW + j + 1] << (64 - (start&0x3f));
       }
     }
   }
