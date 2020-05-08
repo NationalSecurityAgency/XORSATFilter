@@ -228,9 +228,7 @@ uint8_t *XORSATFilterRetrieveMetadataBlock_WRS(XORSATFilterQuerier *xsfq, uint32
   uint32_t nSolutions = xsfq->nSolutions;
   size_t nMetaDataBits = xsfq->nMetaDataBytes * 8;
   uint32_t nRHSBits = nSolutions + nMetaDataBits;
-
-  size_t nBits = nVariables * nRHSBits;
-  size_t nLength = nBits >> 6;
+  size_t nLength = ((nVariables * nRHSBits)+63) >> 6;
 
   uint64_t *pMetaData = (uint64_t *)calloc((xsfq->nMetaDataBytes >> 2) + 1, sizeof(uint64_t));
 
@@ -239,7 +237,7 @@ uint8_t *XORSATFilterRetrieveMetadataBlock_WRS(XORSATFilterQuerier *xsfq, uint32
 
     size_t start = (var * nRHSBits) + nSolutions;
     size_t startW  = start >> 6;
-    size_t lengthW = (nMetaDataBits >> 6) + 1;
+    size_t lengthW = (nMetaDataBits+63) >> 6;
     size_t j;
     for(j = 0; j < lengthW; j++) {
       pMetaData[j] ^= pFilterBlock[startW + j] >> (start&0x3f);
