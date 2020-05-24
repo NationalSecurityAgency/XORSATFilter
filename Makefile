@@ -26,7 +26,7 @@ CFLAGS = -std=gnu99 $(DBG) $(OPT) $(INCLUDES)
 AR = ar r
 RANLIB = ranlib
 
-all: depend lib/bitvector/lib/libbitvector.a lib/lib$(XORSATLIB).a
+all: depend lib/lib$(XORSATLIB).a
 
 depend: .depend
 .depend: $(SOURCES)
