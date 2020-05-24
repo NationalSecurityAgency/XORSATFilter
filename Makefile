@@ -68,22 +68,10 @@ lib/lib$(XORSATLIB).a: $(OBJECTS) Makefile lib/bitvector/lib/libbitvector.a lib/
 test/test: test/test.c lib/lib$(XORSATLIB).a
 	$(CC) $(CFLAGS) $(LDFLAGS) test/test.c -o test/test $(LIBS)
 
-.PHONY: dist
-dist: $(SOURCES) $(HEADERS) $(EXTRAS)
-	rm -rf xor_filter.tar.gz
-	[ -d xor_filter         ] || mkdir -p xor_filter
-	[ -d xor_filter/obj     ] || mkdir -p xor_filter/obj
-	[ -d xor_filter/lib     ] || mkdir -p xor_filter/lib
-	[ -d xor_filter/src     ] || mkdir -p xor_filter/src
-	[ -d xor_filter/scripts ] || mkdir -p xor_filter/scripts
-	rsync -R $(SOURCES) $(HEADERS) $(EXTRAS) xor_filter
-	COPYFILE_DISABLE=1 tar cvzf xor_filter.tar.gz xor_filter
-	rm -rf xor_filter
-
 clean:
 	cd lib/bitvector && $(MAKE) clean
 	rm -rf $(OBJECTS_CTHREADPOOL)
-	rm -rf *~ */*~ $(OBJECTS) ./.depend test/test *.dSYM test/test.dSYM xor_filter.tar.gz filter.xor lib/lib$(XORSATLIB).a obj
+	rm -rf *~ */*~ $(OBJECTS) ./.depend test/test *.dSYM test/test.dSYM XORSATFilter.tar.gz filter.xor lib/lib$(XORSATLIB).a obj
 
 edit:
 	emacs -nw $(SOURCES) $(HEADERS) $(EXTRAS)
