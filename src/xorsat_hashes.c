@@ -53,7 +53,7 @@ void XORSATFilterGenerateRowFromHash_WRS(XORSATFilterHash xsfh, uint32_t nVariab
   xsfh_128.h1 = xsfh.h1;
   xsfh_128.h2 = xsfh_128.h1 ^ 0xc93bd65d1f9ade1a;
   
-  uint16_t *xsfh_16 = (uint16_t *)&xsfh_128;
+  uint16_t *xsfh_16 = xsfh_128.h16;
 
   //Can get 5 values with little effort
   for(; i < nLitsPerRow && i < 5; i++) {

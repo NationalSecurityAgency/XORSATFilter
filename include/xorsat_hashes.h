@@ -24,8 +24,13 @@ typedef struct XORSATFilterHash {
 */
 
 typedef struct XORSATFilterHash128 {
-  uint64_t h1;
-  uint64_t h2;
+  union {
+    uint16_t h16[8];
+    struct {
+      uint64_t h1;
+      uint64_t h2;
+    };
+  };
 } XORSATFilterHash128;
 
 typedef struct XORSATFilterHash {
