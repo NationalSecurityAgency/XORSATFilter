@@ -31,22 +31,33 @@
 
 //Example paramters can be found in src/xorsat_blocks.c
 typedef struct XORSATFilterParameters {
-  uint8_t nLitsPerRow;    //Suggest between 3 and 7
+  uint8_t nLitsPerRow;    //Suggest between 2 and 7
                           //  Small numbers provide faster querying
                           //  Large numbers provide more easily achievable higher efficiency
+                          //  When nLitsPerRow is 2 (preferred) , a very fast hashing
+                          //  method by Martin Dietzfelbinger and Stefan Walzer is activated
   uint8_t nSolutions;     //False positive rate of the filter will be approx. 2^-nSolutions
                           //nSolutions must be less than or equal to 32 (for now)
   uint16_t nEltsPerBlock; //Must be less than 65536 due to how variables are created from hashes
                           //  Large numbers provide higher efficiency
                           //  Small numbers provide faster build time
+                          //  This number is rounded internally to be a multiple of 64, so
+                          //    you may as well just pick a value that is already a
+                          //    multiple of 64
   double fEfficiency;     //Desired efficiency, between 0.0 and 1.0
                           //  For best results, set this number to just above the actual achieved efficiency
                           //  This can be determined by testing
 } XORSATFilterParameters;
 
+// Older parameters from the original paper
 extern XORSATFilterParameters XORSATFilterEfficientParameters;
 extern XORSATFilterParameters XORSATFilterPaperParameters;
 extern XORSATFilterParameters XORSATFilterFastParameters;
+
+// Newer parameters using a fast hashing method by Martin Dietzfelbinger and Stefan Walzer
+extern XORSATFilterParameters XORSATFilterDWEfficientParameters;
+extern XORSATFilterParameters XORSATFilterDWPaperParameters;
+extern XORSATFilterParameters XORSATFilterDWFastParameters;
 
 //Comment out the following to silence progress updates in `XORSATFilterBuilderFinalize`
 #define XORSATFILTER_PRINT_BUILD_PROGRESS

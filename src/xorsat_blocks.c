@@ -16,15 +16,33 @@ XORSATFilterParameters XORSATFilterEfficientParameters =
 
 XORSATFilterParameters XORSATFilterPaperParameters =
   { .nLitsPerRow   = 5,
-    .nSolutions    = 10,
+    .nSolutions    = 7,
     .nEltsPerBlock = 3072,
-    .fEfficiency   = 1.00 }; //Achieved efficiency ~97%
+    .fEfficiency   = 1.00 }; //Achieved efficiency ~98%
 
 XORSATFilterParameters XORSATFilterFastParameters =
   { .nLitsPerRow   = 4,
     .nSolutions    = 7,
     .nEltsPerBlock = 750,
     .fEfficiency   = 1.00 }; //Achieved efficiency ~93%
+
+XORSATFilterParameters XORSATFilterDWEfficientParameters =
+  { .nLitsPerRow   = 2,
+    .nSolutions    = 7,
+    .nEltsPerBlock = 5000,
+    .fEfficiency   = 1.00 }; //Achieved efficiency >99%
+
+XORSATFilterParameters XORSATFilterDWPaperParameters =
+  { .nLitsPerRow   = 2,
+    .nSolutions    = 7,
+    .nEltsPerBlock = 3072,
+    .fEfficiency   = 1.00 }; //Achieved efficiency ~99%
+
+XORSATFilterParameters XORSATFilterDWFastParameters =
+  { .nLitsPerRow   = 2,
+    .nSolutions    = 7,
+    .nEltsPerBlock = 750,
+    .fEfficiency   = 1.00 }; //Achieved efficiency ~95%
 
 create_c_list_type(XORSATFilterBlock_list, XORSATFilterBlock)
 

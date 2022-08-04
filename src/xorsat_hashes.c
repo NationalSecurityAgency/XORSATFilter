@@ -25,11 +25,11 @@ XORSATFilterHash XORSATFilterGenerateHashesFromElement(const void *pElement, siz
       xsfh.h1 = murmurhash[0];
       //xsfh.h2 = murmurhash[1];
     } else {
-      //xsfh.h1 = XXH3_64bits_withSeed(pElement, nElementBytes, (unsigned long long)0x1ae202980e70d8f1 + (nonce++));
+      xsfh.h1 = XXH3_64bits_withSeed(pElement, nElementBytes, (unsigned long long)0x1ae202980e70d8f1 + (nonce++));
       //XXH128_hash_t hash = XXH3_128bits_withSeed(pElement, nElementBytes, (unsigned long long)0x1ae202980e70d8f1 + (nonce++));
       //xsfh.h1 = hash.low64;
       //xsfh.h2 = hash.high64
-      xsfh.h1 = XXH64(pElement, nElementBytes, (unsigned long long)0x1ae202980e70d8f1 + (nonce++));
+      //xsfh.h1 = XXH64(pElement, nElementBytes, (unsigned long long)0x1ae202980e70d8f1 + (nonce++));
       //xsfh.h2 = XXH64(pElement, nElementBytes, (unsigned long long)xsfh.h1);
       //xsfh.h2 = xsfh.h1 ^ 0xc93bd65d1f9ade1a; //Slightly faster
     }
@@ -83,8 +83,8 @@ XORSATFilterRow XORSATFilterGenerateRowFromHash_DW(XORSATFilterHash xsfh, uint32
   //xsfh_128.h2 = XXH64(NULL, 0, xsfh_128.h1);
   xsfh_128.h2 = xsfh.h1 ^ 0xc93bd65d1f9ade1a;
 
-  uint16_t *xsfh_16 = (uint16_t *)&xsfh_128;
-  uint32_t *xsfh_32 = (uint32_t *)&xsfh_128;
+  uint16_t *xsfh_16 = xsfh_128.h16;
+  uint32_t *xsfh_32 = xsfh_128.h32;
 
   uint32_t nBlocks = nVariables >> 4;
   

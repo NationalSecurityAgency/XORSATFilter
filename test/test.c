@@ -75,8 +75,11 @@ int main(int argc, char **argv) {
   XORSATFilterQuerier *xsfq =
     XORSATFilterBuilderFinalize(xsfb,
                                 //XORSATFilterEfficientParameters,
-                                XORSATFilterPaperParameters,
+                                //XORSATFilterPaperParameters,
                                 //XORSATFilterFastParameters,
+                                //XORSATFilterDWEfficientParameters,
+                                XORSATFilterDWPaperParameters,
+                                //XORSATFilterDWFastParameters,
                                 nThreads);
 
   clock_t end_cpu = clock();
