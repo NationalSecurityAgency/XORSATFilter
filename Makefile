@@ -68,10 +68,17 @@ lib/lib$(XORSATLIB).a: $(OBJECTS) Makefile lib/bitvector/lib/libbitvector.a lib/
 test/test: test/test.c lib/lib$(XORSATLIB).a
 	$(CC) $(CFLAGS) $(LDFLAGS) test/test.c -o test/test $(LIBS)
 
+# Same as test/test, but with assertions enabled
+test/check: test/test.c lib/lib$(XORSATLIB).a
+	$(CC) $(filter-out -DNDEBUG,$(CFLAGS)) $(LDFLAGS) test/test.c -o test/check $(LIBS)
+
+check: test/check
+	test/check
+
 clean:
 	cd lib/bitvector && $(MAKE) clean
 	rm -rf $(OBJECTS_CTHREADPOOL)
-	rm -rf *~ */*~ $(OBJECTS) ./.depend test/test *.dSYM test/test.dSYM XORSATFilter.tar.gz filter.xor lib/lib$(XORSATLIB).a obj
+	rm -rf *~ */*~ $(OBJECTS) ./.depend test/test test/check *.dSYM test/test.dSYM test/check.dSYM XORSATFilter.tar.gz filter.xor lib/lib$(XORSATLIB).a obj
 
 edit:
 	emacs -nw $(SOURCES) $(HEADERS) $(EXTRAS)

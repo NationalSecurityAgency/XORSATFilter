@@ -118,6 +118,7 @@ int main(int argc, char **argv) {
   fprintf(stdout, "\nTesting against original elements\n");
   
   uint64_t nNoes = 0;
+  uint64_t nMetaDataFailures = 0;
   for(i = 0; i < nElements; i++) {
     for(j = 0; j < nElementBytes; j++) {
       pElement[j] = (uint8_t)(rand()%256);
@@ -139,8 +140,9 @@ int main(int argc, char **argv) {
       } else {
         uint8_t *pMetaData_retrieved = XORSATFilterRetrieveMetadata(xsfq, pElement, nElementBytes);
         if((nMetaDataBytes > 0 && pMetaData_retrieved == NULL) ||
-           (strncmp((const char *)pMetaData_retrieved, (const char *)pMetaData, nMetaDataBytes) != 0)) {
+           (memcmp(pMetaData_retrieved, pMetaData, nMetaDataBytes) != 0)) {
           fprintf(stderr, "Metadata retrieval failed.\n");
+          nMetaDataFailures++;
         }
         free(pMetaData_retrieved);
       }
@@ -150,6 +152,11 @@ int main(int argc, char **argv) {
   double p = 1.0 - (i==0 ? 0.0 : ((double)nNoes)/((double)i));
   fprintf(stdout, "Percent passed = %4.4lf%%\n", p*100.0);
   assert(p == 1.0);
+  assert(nMetaDataFailures == 0);
+  if(p != 1.0 || nMetaDataFailures != 0) {
+    fprintf(stderr, "Consistency check failed...exiting\n");
+    return 1;
+  }
   free(pElement);
   free(pMetaData);
 
