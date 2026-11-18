@@ -158,8 +158,8 @@ Queriers can be serialized (written to a file) in the following way:
   uint8_t ret = XORSATFilterSerialize(fout, xsfq);
 ```
 
-Here, `fout` is of type `FILE *`. `ret` will be `0` on failure and `1`
-on success.
+Here, `fout` is of type `FILE *`. `ret` will be `0` on success and `1`
+on failure.
 
 A querier can be deserialized (read from a file) in the following way:
 
@@ -193,6 +193,16 @@ consistency check) and prints statistics. To run the test type:
 ```
 $ make test/test && test/test
 ```
+
+To run the same test with its assertions enabled (the default build
+uses `-DNDEBUG`, which removes them), type:
+
+```
+$ make check
+```
+
+The test exits with a non-zero status if any original element is
+answered incorrectly or its metadata cannot be retrieved.
 
 
 FURTHER INFORMATION
