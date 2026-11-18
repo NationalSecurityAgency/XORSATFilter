@@ -27,11 +27,11 @@ This package depends on pthreads and standard C math libraries.
 This project also relies on a few git submodules. To get these
 modules, clone the repository by doing either
 ```
-git clone --recursive git@github.com:NationalSecurityAgency/XORSATFilter.git
+git clone --recursive https://github.com/NationalSecurityAgency/XORSATFilter.git
 ```
 or
 ```
-git clone git@github.com:NationalSecurityAgency/XORSATFilter.git
+git clone https://github.com/NationalSecurityAgency/XORSATFilter.git
 cd XORSATFilter
 git submodule update --init --recursive
 ```
